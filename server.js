@@ -1,6 +1,6 @@
 // DEPENDENCIES - requiring necessary npm packages
 const express = require("express");
-const { Mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const logger = require("morgan");
 
 // Setting up port and requiring models for syncing
@@ -18,14 +18,12 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // MONGODB CONNECTION
-Mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
 });
 
 // ROUTES
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+require("./routes/html-routes")(app);
 
 // LISTENER
 app.listen(PORT, () => {
