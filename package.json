@@ -1,0 +1,33 @@
+{
+  "name": "Fitness-Diary",
+  "version": "1.0.0",
+  "description": "Full-stack web app that utilizes Node.js and MongoDB to allow the user to keep track of their work-out information.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "seed": "node seeders/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaylamuraoka/Fitness-Diary.git"
+  },
+  "keywords": [
+    "nodejs",
+    "mongodb",
+    "mongoose",
+    "expressjs"
+  ],
+  "author": "Kayla Muraoka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaylamuraoka/Fitness-Diary/issues"
+  },
+  "homepage": "https://github.com/kaylamuraoka/Fitness-Diary#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.15",
+    "morgan": "^1.10.0"
+  }
+}
