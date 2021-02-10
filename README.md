@@ -79,4 +79,4 @@ All comments and suggestions regarding improvements to this project are welcome.
 Please use the contact information below if you would like to reach me with any questions.
 
 - Github Profile: [**@kaylamuraoka**](https://github.com/kaylamuraoka)
-- Email: [**kmurs98@gmail.com**]
+- Email: **kmurs98@gmail.com**
