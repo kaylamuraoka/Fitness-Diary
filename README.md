@@ -55,8 +55,10 @@ npm init -y  // initialize the project with NPM
 npm install express  // for express dependencies
 npm i mongoose  // for mongoose dependencies
 npm i morgan  // for morgan dependencies
-
 ```
+
+To populate the database you can run the seed.js file in the seeders directory with the command:
+`npm run seed`
 
 ## Usage
 
