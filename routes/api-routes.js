@@ -31,7 +31,7 @@ module.exports = function (app) {
   // POST Route to create a new workout
   // API is called in the front-end's "createWorkout()" function
   app.post("/api/workouts", ({ body }, res) => {
-    db.create(body)
+    db.Workout.create(body)
       .then((dbWorkout) => {
         res.json(dbWorkout);
       })
