@@ -43,5 +43,14 @@ module.exports = function (app) {
   // --------------------------------------------------------------
   // GET Route to populate workout dashboard
   // API is called in the front-end's "getWorkoutsInRange()" function
-  app.get("/api/workouts/range", (req, res) => {});
+  app.get("/api/workouts/range", (req, res) => {
+    db.Workout.find({})
+      .limit(5)
+      .then((dbWorkout) => {
+        res.json(dbWorkout);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  });
 };
