@@ -34,6 +34,10 @@ const WorkoutSchema = new Schema({
       },
     },
   ],
+  totalDuration: {
+    type: Number,
+    default: 0,
+  },
 });
 
 // Create mongoose model 'Workout' and apply workout schema to that model
