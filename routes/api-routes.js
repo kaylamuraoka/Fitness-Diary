@@ -10,14 +10,22 @@ module.exports = function (app) {
         res.json(dbWorkout);
       })
       .catch((err) => {
-        res.json(err);
+        res.status(400).json(err);
       });
   });
 
   // --------------------------------------------------------------
   // PUT Route to update workout data
   // API is called in the front-end's "addExercise()" function
-  app.put("/api/workouts/:id", (req, res) => {});
+  app.put("/api/workouts/:id", ({ body, params }, res) => {
+    db.Workout.findByIdAndUpdate(params.id, { $push: { exercises: body } })
+      .then((dbWorkout) => {
+        res.json(dbWorkout);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  });
 
   // --------------------------------------------------------------
   // POST Route to create a new workout
