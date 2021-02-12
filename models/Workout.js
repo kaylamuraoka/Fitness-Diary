@@ -3,9 +3,12 @@ const mongoose = require("mongoose");
 // Mongoose Schema
 const Schema = mongoose.Schema;
 
-// Create a new  workout schema
+// Create a new workout schema
 const WorkoutSchema = new Schema({
-  day: { type: Date, default: Date.now },
+  day: {
+    type: Date,
+    default: Date.now(),
+  },
   exercises: [
     {
       type: {
@@ -20,6 +23,9 @@ const WorkoutSchema = new Schema({
         type: Number,
         required: "Enter your exercise duration in minutes",
       },
+      distance: {
+        type: Number,
+      },
       weight: {
         type: Number,
       },
@@ -29,15 +35,8 @@ const WorkoutSchema = new Schema({
       sets: {
         type: Number,
       },
-      distance: {
-        type: Number,
-      },
     },
   ],
-  totalDuration: {
-    type: Number,
-    default: 0,
-  },
 });
 
 // Create mongoose model 'Workout' and apply workout schema to that model

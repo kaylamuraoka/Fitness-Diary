@@ -6,14 +6,14 @@ module.exports = function (app) {
   // API is called in the front-end's "getLastWorkout()" function
   app.get("/api/workouts", (req, res) => {
     db.Workout.find({})
-      .aggregate([
-        {
-          $addFields: {
-            totalDuration: { $sum: ["$exercises.duration"] },
-          },
-        },
-      ])
       .then((dbWorkout) => {
+        dbWorkout.forEach((workout) => {
+          var total = 0;
+          workout.exercises.forEach((e) => {
+            total += e.duration;
+          });
+          workout.totalDuration = total;
+        });
         console.log(dbWorkout);
         res.json(dbWorkout);
       })
