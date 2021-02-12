@@ -5,17 +5,19 @@ module.exports = function (app) {
   // GET Route that calls workout data from API
   // API is called in the front-end's "getLastWorkout()" function
   app.get("/api/workouts", (req, res) => {
-    db.Workout.find({})
-      .then((dbWorkout) => {
-        dbWorkout.forEach((workout) => {
-          var total = 0;
-          workout.exercises.forEach((e) => {
-            total += e.duration;
-          });
-          workout.totalDuration = total;
-        });
-        console.log(dbWorkout);
-        res.json(dbWorkout);
+    db.Workout.aggregate([
+      {
+        $addFields: {
+          totalDuration: {
+            $sum: "$exercises.duration",
+          },
+        },
+      },
+    ])
+      .sort({ day: 1 })
+      .then((found) => {
+        console.log(found);
+        res.json(found);
       })
       .catch((err) => {
         console.log(err);
@@ -27,9 +29,11 @@ module.exports = function (app) {
   // PUT Route to update workout data
   // API is called in the front-end's "addExercise()" function
   app.put("/api/workouts/:id", (req, res) => {
-    db.Workout.findByIdAndUpdate(req.params.id, {
-      $push: { exercises: req.body },
-    })
+    db.Workout.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { exercises: req.body } },
+      { new: true }
+    )
       .then((dbWorkout) => {
         console.log(dbWorkout);
         res.json(dbWorkout);
@@ -58,15 +62,25 @@ module.exports = function (app) {
   // --------------------------------------------------------------
   // GET Route to populate workout dashboard
   // API is called in the front-end's "getWorkoutsInRange()" function
+  // Range = last 7 days shown on the stats page
   app.get("/api/workouts/range", (req, res) => {
-    db.Workout.find({})
+    db.Workout.aggregate([
+      {
+        $addFields: {
+          totalDuration: {
+            $sum: "$exercises.duration",
+          },
+        },
+      },
+    ])
+      .sort({ day: -1 })
       .limit(7)
+      .sort({ day: 1 })
       .then((dbWorkout) => {
         console.log(dbWorkout);
         res.json(dbWorkout);
       })
       .catch((err) => {
-        console.log(err);
         res.status(400).json(err);
       });
   });
